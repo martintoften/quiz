@@ -1,0 +1,236 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Retro Color Palette */
+  --retro-black: #0a0a0a;
+  --retro-dark: #1a1a2e;
+  --retro-purple: #16213e;
+  --retro-cyan: #00fff5;
+  --retro-magenta: #ff00ff;
+  --retro-yellow: #ffff00;
+  --retro-green: #00ff00;
+  --retro-orange: #ff6600;
+  --retro-red: #ff0040;
+  --retro-gray: #4a4a4a;
+  --retro-white: #e0e0e0;
+  --pixel-shadow: #000000;
+}
+
+body {
+  font-family: 'VT323', monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--retro-black);
+  color: var(--retro-white);
+}
+
+/* Custom scrollbar - retro style */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--retro-dark);
+  border: 2px solid var(--retro-gray);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--retro-cyan);
+  border: 2px solid var(--retro-dark);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--retro-magenta);
+}
+
+/* Scanline overlay effect */
+.scanlines::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.1) 0px,
+    rgba(0, 0, 0, 0.1) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* CRT screen curve effect */
+.crt-curve {
+  box-shadow:
+    inset 0 0 100px rgba(0, 0, 0, 0.5),
+    inset 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Pixel-perfect borders */
+.pixel-border {
+  image-rendering: pixelated;
+  border-style: solid;
+}
+
+/* Neon text glow */
+.neon-text {
+  text-shadow:
+    0 0 5px currentColor,
+    0 0 10px currentColor,
+    0 0 20px currentColor;
+}
+
+/* Neon text variants */
+.neon-text-cyan {
+  text-shadow:
+    0 0 5px #00fff5,
+    0 0 10px #00fff5,
+    0 0 20px #00fff5;
+}
+
+.neon-text-magenta {
+  text-shadow:
+    0 0 5px #ff00ff,
+    0 0 10px #ff00ff,
+    0 0 20px #ff00ff;
+}
+
+.neon-text-yellow {
+  text-shadow:
+    0 0 5px #ffff00,
+    0 0 10px #ffff00,
+    0 0 20px #ffff00;
+}
+
+.neon-text-green {
+  text-shadow:
+    0 0 5px #00ff00,
+    0 0 10px #00ff00,
+    0 0 20px #00ff00;
+}
+
+.neon-text-red {
+  text-shadow:
+    0 0 5px #ff0040,
+    0 0 10px #ff0040,
+    0 0 20px #ff0040;
+}
+
+/* Christmas neon effects */
+.neon-text-xmas {
+  text-shadow:
+    0 0 5px #ff1a1a,
+    0 0 10px #00cc44,
+    0 0 20px #ff1a1a,
+    0 0 30px #00cc44;
+}
+
+.neon-text-xmas-red {
+  text-shadow:
+    0 0 5px #ff1a1a,
+    0 0 10px #ff1a1a,
+    0 0 20px #ff1a1a;
+}
+
+.neon-text-xmas-green {
+  text-shadow:
+    0 0 5px #00cc44,
+    0 0 10px #00cc44,
+    0 0 20px #00cc44;
+}
+
+.neon-text-gold {
+  text-shadow:
+    0 0 5px #ffd700,
+    0 0 10px #ffd700,
+    0 0 20px #ffd700;
+}
+
+/* Retro button base styles */
+.retro-btn {
+  font-family: 'Press Start 2P', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.1s ease;
+}
+
+.retro-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: none !important;
+}
+
+/* Blinking cursor effect */
+.blinking-cursor::after {
+  content: '_';
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Grid background pattern */
+.retro-grid-bg {
+  background-image:
+    linear-gradient(rgba(0, 255, 245, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 245, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Starfield effect helper */
+.star {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+}
+
+/* Press Start style text */
+.press-start-text {
+  font-family: 'Press Start 2P', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Retro input styling */
+.retro-input {
+  font-family: 'VT323', monospace;
+  background: var(--retro-black);
+  border: 3px solid var(--retro-gray);
+  color: var(--retro-green);
+  caret-color: var(--retro-green);
+  transition: all 0.2s ease;
+}
+
+.retro-input:focus {
+  border-color: var(--retro-cyan);
+  box-shadow: 0 0 10px var(--retro-cyan);
+  outline: none;
+}
+
+.retro-input::placeholder {
+  color: var(--retro-gray);
+}
+
+/* Arcade card styling */
+.retro-card {
+  background: var(--retro-dark);
+  border: 4px solid var(--retro-cyan);
+  box-shadow:
+    8px 8px 0 var(--pixel-shadow),
+    inset 0 0 50px rgba(0, 255, 245, 0.05);
+}
+
+/* Selection styling */
+::selection {
+  background: var(--retro-cyan);
+  color: var(--retro-black);
+}
+
+/* Focus visible for accessibility */
+:focus-visible {
+  outline: 3px solid var(--retro-cyan);
+  outline-offset: 2px;
+}
