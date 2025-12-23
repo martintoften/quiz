@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
-import { supabase } from '../../lib/supabase';
+import { adminApi } from '../../lib/api';
 import type { Question } from '../../types';
 
 interface QuestionFormProps {
@@ -46,23 +46,7 @@ export function QuestionForm({ onSubmit, nextOrderIndex }: QuestionFormProps) {
   }
 
   async function uploadImage(file: File): Promise<string | null> {
-    const fileExt = file.name.split('.').pop();
-    const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
-
-    const { error: uploadError } = await supabase.storage
-      .from('question-images')
-      .upload(fileName, file);
-
-    if (uploadError) {
-      console.error('Upload error:', uploadError);
-      return null;
-    }
-
-    const { data } = supabase.storage
-      .from('question-images')
-      .getPublicUrl(fileName);
-
-    return data.publicUrl;
+    return adminApi.uploadImage(file);
   }
 
   function handleOptionChange(index: number, value: string) {

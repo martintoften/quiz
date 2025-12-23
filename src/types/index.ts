@@ -1,7 +1,7 @@
 export interface Quiz {
   id: string;
   title: string;
-  game_code: string;
+  gameCode: string;
   status: 'waiting' | 'active' | 'finished';
   current_question_index: number;
   created_at: string;

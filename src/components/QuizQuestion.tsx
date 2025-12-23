@@ -25,10 +25,8 @@ export function QuizQuestion() {
 
     if (quiz.status === 'waiting') {
       navigate(`/game/${gameCode}/lobby`);
-    } else if (quiz.status === 'finished') {
+    } else if (quiz.status === 'finished' || currentPlayer.status === 'finished') {
       navigate(`/game/${gameCode}/results`);
-    } else if (currentPlayer.status === 'finished') {
-      navigate(`/game/${gameCode}/waiting`);
     }
   }, [quiz, currentPlayer, navigate, gameCode]);
 
@@ -54,7 +52,7 @@ export function QuizQuestion() {
   async function handleNextQuestion() {
     const { finished } = await nextPlayerQuestion();
     if (finished) {
-      navigate(`/game/${gameCode}/waiting`);
+      navigate(`/game/${gameCode}/results`);
     }
   }
 

@@ -44,7 +44,7 @@ export function Lobby() {
           <div className="inline-block bg-retro-black border-2 border-retro-cyan px-4 py-2 shadow-[4px_4px_0_#000]">
             <span className="font-pixel text-[8px] text-retro-gray block mb-1">GAME CODE</span>
             <span className="font-pixel text-lg text-retro-cyan neon-text-cyan tracking-widest">
-              {quiz.game_code}
+              {quiz.gameCode}
             </span>
           </div>
         </div>

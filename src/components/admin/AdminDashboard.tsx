@@ -112,7 +112,7 @@ export function AdminDashboard() {
                     </h2>
                     <div className="flex items-center gap-4 text-sm flex-wrap">
                       <span className="font-pixel text-[10px] bg-retro-black border-2 border-retro-cyan px-2 py-1 text-retro-cyan">
-                        {quiz.game_code}
+                        {quiz.gameCode}
                       </span>
                       <span
                         className={`font-pixel text-[8px] px-2 py-1 border uppercase ${getStatusStyle(

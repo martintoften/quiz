@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
+import { gameApi } from '../lib/api';
 import { useGame } from '../contexts/GameContext';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
@@ -23,7 +23,7 @@ export function Results() {
 
     if (quiz.status === 'waiting') {
       navigate(`/game/${gameCode}/lobby`);
-    } else if (quiz.status === 'active') {
+    } else if (quiz.status === 'active' && currentPlayer.status !== 'finished') {
       navigate(`/game/${gameCode}/play`);
     }
   }, [quiz, currentPlayer, navigate, gameCode]);
@@ -32,33 +32,27 @@ export function Results() {
     async function fetchScores() {
       if (!quiz) return;
 
-      const { data: answersData } = await supabase
-        .from('answers')
-        .select('player_id, is_correct')
-        .in(
-          'question_id',
-          questions.map((q) => q.id)
-        );
+      try {
+        const answersData = await gameApi.getQuizAnswers(quiz.id);
 
-      if (!answersData) {
+        const playerScores: PlayerScore[] = players.map((player) => {
+          const playerAnswers = answersData.filter((a) => a.player_id === player.id);
+          const correctAnswers = playerAnswers.filter((a) => a.is_correct).length;
+
+          return {
+            player,
+            correctAnswers,
+            totalQuestions: questions.length,
+          };
+        });
+
+        playerScores.sort((a, b) => b.correctAnswers - a.correctAnswers);
+        setScores(playerScores);
+      } catch (error) {
+        console.error('Failed to fetch scores:', error);
+      } finally {
         setIsLoading(false);
-        return;
       }
-
-      const playerScores: PlayerScore[] = players.map((player) => {
-        const playerAnswers = answersData.filter((a) => a.player_id === player.id);
-        const correctAnswers = playerAnswers.filter((a) => a.is_correct).length;
-
-        return {
-          player,
-          correctAnswers,
-          totalQuestions: questions.length,
-        };
-      });
-
-      playerScores.sort((a, b) => b.correctAnswers - a.correctAnswers);
-      setScores(playerScores);
-      setIsLoading(false);
     }
 
     fetchScores();
